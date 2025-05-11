@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致最爱的妈妈 | 母亲节快乐</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff8a80;
+            --soft-pink: #ffebee;
+            --warm-beige: #fff9f2;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--warm-beige) 100%);
+            position: relative;
+            overflow: hidden;
+            /* 恢复默认无衬线字体 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle at 65% 35%, rgba(255, 205, 210, 0.25) 0%, transparent 65%);
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle at 35% 65%, rgba(255, 228, 196, 0.35) 0%, transparent 65%);
+            z-index: -1;
+        }
+
+        .flower-decoration {
+            position: absolute;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 15A35 35 0 0 1 85 50 35 35 0 0 1 50 85 35 35 0 0 1 15 50 35 35 0 0 1 50 15Z" fill="%23ff8a80"/><path d="M50 20A30 30 0 0 1 80 50 30 30 0 0 1 50 80 30 30 0 0 1 20 50 30 30 0 0 1 50 20Z" fill="%23ffcdd2"/><path d="M50 25A25 25 0 0 1 75 50 25 25 0 0 1 50 75 25 25 0 0 1 25 50 25 25 0 0 1 50 25Z" fill="%23ffebee"/></svg>');
+            background-size: contain;
+            opacity: 0.12;
+            animation: float 4s ease-in-out infinite both;
+            filter: drop-shadow(0 2px 4px rgba(255, 138, 128, 0.1));
+        }
+
+        .heart {
+            width: 20px;
+            height: 20px;
+            background: hsl(358, 100%, 75%);
+            position: absolute;
+            transform: rotate(45deg) scale(0.9);
+            animation: heartFloat 3s ease-in infinite;
+            will-change: transform, opacity;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+            filter: blur(1px);
+        }
+
+        .heart::before { top: -50%; }
+        .heart::after { left: -50%; }
+
+        @keyframes heartFloat {
+            0% {
+                transform: rotate(45deg) translateY(0) scale(0.9);
+                opacity: 0.9;
+            }
+            30% { transform: rotate(60deg) translateY(-15vh) scale(1.05); }
+            60% { transform: rotate(30deg) translateY(-30vh) scale(1.1); }
+            100% {
+                transform: rotate(45deg) translateY(-50vh) scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .text-gradient {
+            background: linear-gradient(45deg, #ff6b6b 20%, #ff8e53 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 8px rgba(255, 107, 107, 0.15);
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 24px rgba(255, 138, 128, 0.2);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: scale(1);
+        }
+
+        .music-control:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 32px rgba(255, 138, 128, 0.3);
+        }
+
+        .music-control i {
+            color: var(--primary-pink);
+            font-size: 1.4rem;
+            transition: transform 0.2s ease;
+        }
+
+        .music-control.playing i {
+            transform: scale(1.1);
+        }
+
+        .petal {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ffcdd2;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: petalFall 6s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            20% { transform: translateY(10vh) rotate(30deg); }
+            40% { transform: translateY(30vh) rotate(-20deg); }
+            60% { transform: translateY(50vh) rotate(45deg); }
+            80% { transform: translateY(70vh) rotate(-15deg); }
+            100% {
+                transform: translateY(100vh) rotate(20deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen relative">
+    <audio id="bg-music" loop preload="auto" volume="0.4">
+        <source src="https://assets.mixkit.co/active_storage/sfx/3305/3305-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" id="music-btn">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <div id="petal-container" class="absolute w-full h-full pointer-events-none"></div>
+
+    <!-- 替换为指定文案 -->
+    <div class="main-content h-screen flex flex-col justify-center items-center px-4">
+        <h1 class="text-3xl md:text-5xl font-bold mb-6 text-gradient tracking-tight">
+            💐 母亲节快乐 💐
+        </h1>
+        <p class="text-lg md:text-xl text-gray-800 mb-8 max-w-2xl leading-relaxed">
+            时光藏起她的青丝，却藏不住掌心的温度。<br>
+            那些唠叨是岁月织就的情书，<br>
+            每一次守候都是无声的告白。<br><br>
+            妈妈，愿时光对您多偏爱，<br>
+            常伴欢笑，健康永随。
+        </p>
+        <div class="flex items-center gap-6 mb-12">
+            <i class="fas fa-gift text-3xl text-rose-400"></i>
+            <i class="fas fa-heart text-3xl text-rose-500"></i>
+            <i class="fas fa-flower-tulip text-3xl text-rose-300"></i>
+        </div>
+        <p class="text-sm text-gray-600">点击屏幕，为妈妈撒下更多爱心吧 ❤️</p>
+    </div>
+
+    <script>
+        // 音乐控制（保持不变）
+        const musicBtn = document.getElementById('music-btn');
+        const bgMusic = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        musicBtn.addEventListener('click', async () => {
+            try {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicBtn.classList.remove('playing');
+                    musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    await bgMusic.play();
+                    musicBtn.classList.add('playing');
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            } catch (err) {
+                alert('点击允许播放音乐~');
+            }
+        });
+
+        // 爱心动画（保持不变）
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            
+            const size = Math.random() * 15 + 8;
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+            heart.style.left = `${e.clientX - size/2}px`;
+            heart.style.top = `${e.clientY - size/2}px`;
+            heart.style.animationDelay = `${Math.random() * 1.2}s`;
+            heart.style.animationDuration = `${Math.random() * 1 + 2.5}s`;
+            heart.style.background = `hsl(${Math.random() * 10 + 350}, 100%, ${Math.random() * 10 + 60}%)`;
+            
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        });
+
+        function generateInitialHearts() {
+            for (let i = 0; i < 40; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                const size = Math.random() * 15 + 8;
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                heart.style.left = `${Math.random() * window.innerWidth}px`;
+                heart.style.top = `${Math.random() * window.innerHeight}px`;
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+                heart.style.animationDuration = `${Math.random() * 1 + 2.5}s`;
+                heart.style.background = `hsl(${Math.random() * 10 + 350}, 100%, ${Math.random() * 10 + 60}%)`;
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
+            }
+        }
+        generateInitialHearts();
+
+        // 花瓣飘落（保持不变）
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = `${Math.random() * 100}vw`;
+            petal.style.top = `${-Math.random() * 20}vh`;
+            petal.style.width = `${Math.random() * 8 + 4}px`;
+            petal.style.height = `${Math.random() * 12 + 6}px`;
+            petal.style.background = `hsl(358, ${Math.random() * 20 + 60}%, ${Math.random() * 10 + 80}%)`;
+            petal.style.animationDelay = `${Math.random() * 3}s`;
+            document.getElementById('petal-container').appendChild(petal);
+            setTimeout(() => petal.remove(), 6000);
+        }
+        setInterval(createPetal, 200);
+    </script>
+</body>
+</html>
+    
